@@ -42,7 +42,7 @@ const PairingLogic = ({ participants }) => {
     const resend = new Resend("re_g2GdzTKA_9kybs71JzPstSkeLUSXn81hw");
 
     const { data } = await resend.emails.send({
-      from: "Acme <onboarding@resend.dev>",
+      from: "smtp.resend.com",
       to: "clement.massit@u-bordeaux.fr",
       subject: "hello world",
       react: <Email />,
@@ -53,7 +53,7 @@ const PairingLogic = ({ participants }) => {
 
   return (
     <div className="container">
-      {/* <h2>Assignation des paires</h2>
+      <h2>Assignation des paires</h2>
       <button onClick={generatePairs}>Générer les paires</button>
       {participants}
       {pairs.length > 0 && (
@@ -67,7 +67,7 @@ const PairingLogic = ({ participants }) => {
             ))}
           </ul>
         </div>
-      )} */}
+      )}
 
       <form>
         <button type="submit" onClick={send}>
