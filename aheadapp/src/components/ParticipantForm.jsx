@@ -1,19 +1,37 @@
-import { useState } from "react";
-
-const ParticipantForm = ({ setParticipants }) => {
+import { useState, useEffect } from "react";
+import { loadFromLocalStorage, saveToLocalStorage } from "./localStorage";
+const ParticipantForm = ({ participants, setParticipants }) => {
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
 
+  useEffect(() => {
+    const storedParticipants = loadFromLocalStorage("participants");
+    if (storedParticipants.length > 0) {
+      setParticipants(storedParticipants);
+    }
+  }, [setParticipants]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (name.trim() !== "") {
-      setParticipants((prev) => [
-        ...prev,
-        { name: name.trim(), mail: mail.trim() },
-      ]);
-      setName("");
-      setMail("");
+
+    if (name.trim() === "" || mail.trim() === "") {
+      alert("Le nom et l'email sont obligatoires.");
+      return;
     }
+
+    const newParticipant = {
+      name: name.trim(),
+      email: mail.trim(),
+    };
+
+    const updatedParticipants = [...participants, newParticipant];
+
+    setParticipants(updatedParticipants);
+    saveToLocalStorage("participants", updatedParticipants);
+
+    // Réinitialiser les champs du formulaire
+    setName("");
+    setMail("");
   };
 
   return (

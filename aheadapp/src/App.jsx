@@ -14,7 +14,10 @@ function App() {
       <Header />
       <Background></Background>
 
-      <ParticipantForm setParticipants={setParticipants} />
+      <ParticipantForm
+        participants={participants}
+        setParticipants={setParticipants}
+      />
       <PairingLogic participants={participants.map((p) => p.name)} />
       <Footer />
     </>
