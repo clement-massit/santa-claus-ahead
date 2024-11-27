@@ -12,7 +12,7 @@ function App() {
   return (
     <>
       <Header />
-      <Background></Background>
+      <Background />
 
       <ParticipantForm
         participants={participants}
