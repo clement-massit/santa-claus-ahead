@@ -3,98 +3,98 @@ import "./background.scss";
 const Background = () => {
   return (
     <>
-      <div class="wrapper">
-        <h2 class="holidays-title">Va te faire enculer !</h2>
-        <div class="scene">
-          <div class="xmas-tree">
-            <div class="tree-star"></div>
-            <div class="tree-leaves">
-              <div class="tree-part">
-                <div class="tree-lights left">
-                  <div class="light-bulb red"></div>
-                  <div class="light-bulb yew"></div>
-                  <div class="light-bulb purple"></div>
-                  <div class="light-bulb blue"></div>
+      <div className="wrapper">
+        <h2 className="holidays-title">Va te faire enculer !</h2>
+        <div className="scene">
+          <div className="xmas-tree">
+            <div className="tree-star"></div>
+            <div className="tree-leaves">
+              <div className="tree-part">
+                <div className="tree-lights left">
+                  <div className="light-bulb red"></div>
+                  <div className="light-bulb yew"></div>
+                  <div className="light-bulb purple"></div>
+                  <div className="light-bulb blue"></div>
                 </div>
-                <div class="tree-lights right">
-                  <div class="light-bulb red"></div>
-                  <div class="light-bulb yew"></div>
-                  <div class="light-bulb purple"></div>
-                  <div class="light-bulb blue"></div>
-                </div>
-              </div>
-              <div class="tree-part">
-                <div class="tree-lights left">
-                  <div class="light-bulb red"></div>
-                  <div class="light-bulb yew"></div>
-                  <div class="light-bulb purple"></div>
-                  <div class="light-bulb blue"></div>
-                </div>
-                <div class="tree-lights right">
-                  <div class="light-bulb red"></div>
-                  <div class="light-bulb yew"></div>
-                  <div class="light-bulb purple"></div>
-                  <div class="light-bulb blue"></div>
+                <div className="tree-lights right">
+                  <div className="light-bulb red"></div>
+                  <div className="light-bulb yew"></div>
+                  <div className="light-bulb purple"></div>
+                  <div className="light-bulb blue"></div>
                 </div>
               </div>
-              <div class="tree-part">
-                <div class="tree-lights left">
-                  <div class="light-bulb red"></div>
-                  <div class="light-bulb yew"></div>
-                  <div class="light-bulb purple"></div>
-                  <div class="light-bulb blue"></div>
+              <div className="tree-part">
+                <div className="tree-lights left">
+                  <div className="light-bulb red"></div>
+                  <div className="light-bulb yew"></div>
+                  <div className="light-bulb purple"></div>
+                  <div className="light-bulb blue"></div>
                 </div>
-                <div class="tree-lights right">
-                  <div class="light-bulb red"></div>
-                  <div class="light-bulb yew"></div>
-                  <div class="light-bulb purple"></div>
-                  <div class="light-bulb blue"></div>
+                <div className="tree-lights right">
+                  <div className="light-bulb red"></div>
+                  <div className="light-bulb yew"></div>
+                  <div className="light-bulb purple"></div>
+                  <div className="light-bulb blue"></div>
+                </div>
+              </div>
+              <div className="tree-part">
+                <div className="tree-lights left">
+                  <div className="light-bulb red"></div>
+                  <div className="light-bulb yew"></div>
+                  <div className="light-bulb purple"></div>
+                  <div className="light-bulb blue"></div>
+                </div>
+                <div className="tree-lights right">
+                  <div className="light-bulb red"></div>
+                  <div className="light-bulb yew"></div>
+                  <div className="light-bulb purple"></div>
+                  <div className="light-bulb blue"></div>
                 </div>
               </div>
             </div>
-            <div class="tree-base">
-              <div class="tree-stalk"></div>
-              <div class="tree-jar"></div>
-            </div>
-          </div>
-          <div class="room-window">
-            <div class="xmas-sky">
-              <div class="snow"></div>
-              <div class="snow-ground"></div>
-              <div class="santa-claus">
-                <div class="sc-head">
-                  <div class="sc-hat">
-                    <div class="hat-tip"></div>
-                  </div>
-                  <div class="eyes"></div>
-                  <div class="nose"></div>
-                  <div class="beard"></div>
-                  <div class="ears">
-                    <div class="ear left"></div>
-                    <div class="ear right"></div>
-                  </div>
-                </div>
-                <div class="sc-body"></div>
-              </div>
+            <div className="tree-base">
+              <div className="tree-stalk"></div>
+              <div className="tree-jar"></div>
             </div>
           </div>
-          <div class="xmas-gifts">
-            <div class="xmas-gift square">
-              <div class="tie-wrap">
-                <div class="tie"></div>
-                <div class="tie reflected"></div>
+          <div className="room-window">
+            <div className="xmas-sky">
+              <div className="snow"></div>
+              <div className="snow-ground"></div>
+              <div className="santa-claus">
+                <div className="sc-head">
+                  <div className="sc-hat">
+                    <div className="hat-tip"></div>
+                  </div>
+                  <div className="eyes"></div>
+                  <div className="nose"></div>
+                  <div className="beard"></div>
+                  <div className="ears">
+                    <div className="ear left"></div>
+                    <div className="ear right"></div>
+                  </div>
+                </div>
+                <div className="sc-body"></div>
               </div>
             </div>
-            <div class="xmas-gift rectangular">
-              <div class="tie-wrap">
-                <div class="tie"></div>
-                <div class="tie reflected"></div>
+          </div>
+          <div className="xmas-gifts">
+            <div className="xmas-gift square">
+              <div className="tie-wrap">
+                <div className="tie"></div>
+                <div className="tie reflected"></div>
+              </div>
+            </div>
+            <div className="xmas-gift rectangular">
+              <div className="tie-wrap">
+                <div className="tie"></div>
+                <div className="tie reflected"></div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="ground"></div>
+        <div className="ground"></div>
       </div>
     </>
   );

@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "sass:math";
+
 @import url("https://fonts.googleapis.com/css?family=Mountains+of+Christmas:700");
 
 $body-bg: #e9e0ca;
@@ -24,8 +27,8 @@ $s: 4s; // speed
 // Generate the snow image using radial gradients
 $grad: ();
 @for $i from 0 to $d {
-  $v: random(3) + 2; // size
-  $a: random(5) * 0.1 + 0.5;
+  $v: math.random(3) + 2; // size
+  $a: math.random(5) * 0.1 + 0.5;
   $grad: $grad,
     radial-gradient(
       $v +
@@ -33,9 +36,9 @@ $grad: ();
         $v +
         px
         at
-        (random($w - $v * 2) + $v) +
+        (math.random($w - $v * 2) + $v) +
         px
-        (random($w - $v * 2) + $v) +
+        (math.random($w - $v * 2) + $v) +
         px,
       rgba(255, 255, 255, $a) 70%,
       rgba(0, 0, 0, 0)
@@ -140,7 +143,7 @@ body {
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
     border-bottom: 25px solid $tree-star-color;
-    box-shadow: 1px 19px 20px -7px darken($tree-color, 30%);
+    box-shadow: 1px 19px 20px -7px color.adjust($tree-color, $lightness: -30%);
   }
 
   &::after {
@@ -173,7 +176,7 @@ body {
     background-size: 20px 20px;
     background-image: radial-gradient(
       circle at 10px 15px,
-      darken($tree-color, 5%) 12px,
+      color.adjust($tree-color, $lightness: -5%) 12px,
       transparent 13px
     );
     top: 99px;
@@ -182,7 +185,7 @@ body {
   }
 
   &:nth-child(2) {
-    border-bottom-color: darken($tree-color, 15%);
+    border-bottom-color: color.adjust($tree-color, $lightness: -15%);
     transform: scale(1.4);
     top: -45px;
     z-index: 2;
@@ -190,14 +193,14 @@ body {
     &::before {
       background-image: radial-gradient(
         circle at 10px 15px,
-        darken($tree-color, 10%) 12px,
+        color.adjust($tree-color, $lightness: -10%) 12px,
         transparent 13px
       );
     }
   }
 
   &:nth-child(3) {
-    border-bottom-color: darken($tree-color, 20%);
+    border-bottom-color: color.adjust($tree-color, $lightness: -20%);
     transform: scale(1.8);
     top: -80px;
     z-index: 1;
@@ -205,7 +208,7 @@ body {
     &::before {
       background-image: radial-gradient(
         circle at 10px 15px,
-        darken($tree-color, 15%) 12px,
+        color.adjust($tree-color, $lightness: 10%) 12px,
         transparent 13px
       );
     }
@@ -217,7 +220,8 @@ body {
   width: 25px;
   height: 75px;
   background: $tree-stalk-color;
-  box-shadow: inset 0 22px 6px -1px darken($tree-stalk-color, 20%);
+  box-shadow: inset 0 22px 6px -1px color.adjust($tree-stalk-color, $lightness:
+        -20%);
   position: relative;
   top: -40px;
 }
@@ -235,7 +239,7 @@ body {
     height: 20px;
     float: left;
     background: $tree-jar-color;
-    box-shadow: 0 3px 2px -1px darken($tree-jar-color, 5%);
+    box-shadow: 0 3px 2px -1px color.adjust($tree-jar-color, $lightness: -5%);
     position: relative;
     border-radius: 2px;
     left: -3px;
@@ -243,7 +247,7 @@ body {
 
   &::after {
     content: "";
-    border-top: 50px solid lighten($tree-jar-color, 10%);
+    border-top: 50px solid color.adjust($tree-jar-color, $lightness: 10%);
     border-left: 20px solid transparent;
     border-right: 20px solid transparent;
     height: 0;
@@ -284,7 +288,8 @@ body {
 
   &.red {
     background: $light-bulb-red;
-    box-shadow: $light-bulb-outline, 0 2px 6px 2px opacify($light-bulb-red, 0.2);
+    box-shadow: $light-bulb-outline,
+      0 2px 6px 2px color.adjust($light-bulb-red, $alpha: 0.2);
     transform: rotateZ(-73deg);
     top: 2px;
     left: -9px;
@@ -293,7 +298,8 @@ body {
 
   &.yew {
     background: $light-bulb-yew;
-    box-shadow: $light-bulb-outline, 0 2px 6px 2px opacify($light-bulb-yew, 0.2);
+    box-shadow: $light-bulb-outline,
+      0 2px 6px 2px color.adjust($light-bulb-yew, $alpha: 0.2);
     transform: rotateZ(-86deg);
     top: 6px;
     left: 20px;
@@ -303,7 +309,7 @@ body {
   &.purple {
     background: $light-bulb-purple;
     box-shadow: $light-bulb-outline,
-      0 2px 6px 2px opacify($light-bulb-purple, 0.2);
+      0 2px 6px 2px color.adjust($light-bulb-purple, $alpha: 0.2);
     transform: rotateZ(-96deg);
     top: 6px;
     left: 50px;
@@ -313,7 +319,7 @@ body {
   &.blue {
     background: $light-bulb-blue;
     box-shadow: $light-bulb-outline,
-      0 2px 6px 2px opacify($light-bulb-blue, 0.2);
+      0 2px 6px 2px color.adjust($light-bulb-blue, $alpha: 0.2);
     transform: rotateZ(-106deg);
     top: 3px;
     left: 75px;
@@ -334,7 +340,7 @@ body {
     @extend %center-element;
     content: "";
     background: $window-color;
-    box-shadow: 1px 0 1px 1px darken($window-color, 15%);
+    box-shadow: 1px 0 1px 1px color.adjust($window-color, $lightness: -15%);
     width: 10px;
     height: inherit;
     position: absolute;
@@ -357,7 +363,7 @@ body {
     background: linear-gradient(
       0deg,
       $xmas-sky-color,
-      darken($xmas-sky-color, 15%)
+      color.adjust($xmas-sky-color, $lightness: -15%)
     );
     width: 100%;
     height: 100%;
@@ -390,7 +396,7 @@ body {
     width: 100%;
     height: 10px;
     background: yellow;
-    box-shadow: -30px 0 0 0 darken(yellow, 8%);
+    box-shadow: -30px 0 0 0 color.adjust(yellow, $lightness: 8%);
     display: block;
     position: relative;
     top: 35px;
@@ -411,7 +417,7 @@ body {
     width: 80px;
     height: 80px;
     background: #ff54cf;
-    box-shadow: -30px 0 0 0 darken(#ff54cf, 20%);
+    box-shadow: -30px 0 0 0 color.adjust(#ff54cf, $lightness: 20%);
     position: relative;
     z-index: 1;
   }
@@ -420,7 +426,7 @@ body {
     width: 60px;
     height: 120px;
     background: rgba(14, 190, 255, 1);
-    box-shadow: -30px 0 0 0 darken(rgba(14, 190, 255, 1), 15%);
+    box-shadow: -30px 0 0 0 color.adjust(rgba(14, 190, 255, 1), $lightness: 15%);
     position: absolute;
     top: -50px;
     left: 100px;
@@ -445,7 +451,7 @@ body {
     &::before {
       @extend .tie;
       content: "";
-      background: darken(yellow, 10%);
+      background: color.adjust(yellow, $lightness: 10%);
       transform: scale(0.5) translateX(15px) translateY(8px);
     }
 
@@ -634,7 +640,7 @@ body {
 }
 
 .snow:after {
-  margin-left: -$w/3 + px;
+  margin-left: calc(-1 * $w / 3) + px;
   opacity: 0.4;
   animation-duration: $s * 2;
   animation-direction: reverse;
@@ -644,7 +650,7 @@ body {
 .snow:before {
   animation-duration: $s * 3;
   animation-direction: reverse;
-  margin-left: -$w/2 + px;
+  margin-left: calc(-1 * $w / 2) + px;
   opacity: 0.65;
   filter: blur(1.5px);
 }
@@ -657,25 +663,25 @@ body {
 
 @keyframes blink {
   20% {
-    background: lighten($light-bulb-red, 18%);
+    background: color.adjust($light-bulb-red, $lightness: 18%);
   }
 }
 
 @keyframes blink2 {
   60% {
-    background: lighten($light-bulb-yew, 60%);
+    background: color.adjust($light-bulb-yew, $lightness: 60%);
   }
 }
 
 @keyframes blink3 {
   75% {
-    background: lighten($light-bulb-purple, 18%);
+    background: color.adjust($light-bulb-purple, $lightness: 18%);
   }
 }
 
 @keyframes blink4 {
   100% {
-    background: lighten($light-bulb-blue, 30%);
+    background: color.adjust($light-bulb-blue, $lightness: 30%);
   }
 }
 
