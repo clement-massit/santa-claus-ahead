@@ -3,7 +3,10 @@ import "./background.scss";
 const Background = () => {
   return (
     <>
+   
       <div className="wrapper">
+       
+         
         <h2 className="holidays-title">Va te faire enculer !</h2>
         <div className="scene">
           <div className="xmas-tree">

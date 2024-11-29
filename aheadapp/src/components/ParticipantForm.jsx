@@ -117,21 +117,21 @@ const ParticipantForm = ({ participants, setParticipants }) => {
         img: pictures.pers1,
       };
       console.log(templateParams);
-      emailjs
-        .send(
-          "service_7wfh5wk", // Remplacez par votre service ID
-          "template_kw2pe0f", // Remplacez par votre template ID
-          templateParams,
-          "puDXm3wchAQDhNP9Z" // Remplacez par votre clé publique
-        )
-        .then(
-          () => {
-            console.log(`Email envoyé avec succès pour ${pair.giver}`);
-          },
-          (error) => {
-            console.error("Erreur lors de l'envoi de l'email :", error);
-          }
-        );
+      // emailjs
+      //   .send(
+      //     "service_7wfh5wk", // Remplacez par votre service ID
+      //     "template_kw2pe0f", // Remplacez par votre template ID
+      //     templateParams,
+      //     "puDXm3wchAQDhNP9Z" // Remplacez par votre clé publique
+      //   )
+      //   .then(
+      //     () => {
+      //       console.log(`Email envoyé avec succès pour ${pair.giver}`);
+      //     },
+      //     (error) => {
+      //       console.error("Erreur lors de l'envoi de l'email :", error);
+      //     }
+      //   );
     });
   };
 

@@ -109,3 +109,64 @@ li {
     transform: translate(10vw, 100vh);
   }
 }
+
+.secret-santa-message {
+  font-family: "Arial", sans-serif;
+  /* // background: linear-gradient(135deg, #ffecd2, #fcb69f); */
+  color: #fafafa;
+  padding: 20px;
+  /* // border-radius: 12px; */
+  /* // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+  max-width: 75%;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.secret-santa-message h1 {
+  font-size: 2rem;
+  color: #d9534f;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.secret-santa-message .intro {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.secret-santa-message ol {
+  text-align: left;
+  margin: 20px 0;
+  padding-left: 40px;
+}
+
+.secret-santa-message ol li {
+  font-size: 1rem;
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+.secret-santa-message .rules {
+  background-color: #ffe4e1;
+  padding: 10px;
+  margin: 20px 0;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.secret-santa-message .rules p {
+  margin: 5px 0;
+  color: #d9534f;
+}
+
+.secret-santa-message .outro {
+  font-size: 1rem;
+  margin: 20px 0;
+  font-style: italic;
+}
+
+.secret-santa-message .footer {
+  font-size: 0.9rem;
+  color: #6c757d;
+}

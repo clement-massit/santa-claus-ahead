@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import ParticipantForm from "./components/ParticipantForm";
 // import PairingLogic from "./components/PairingLogic";
 import Background from "./components/Background";
+import Pres from "./components/Presentation";
 // import "./App.css";
 import "./style.css";
 
@@ -11,8 +12,12 @@ function App() {
   const [participants, setParticipants] = useState([]);
   return (
     <>
-      <Header />
+      <Header />    
+      
+      <Pres></Pres>
+   
       <Background />
+     
 
       <ParticipantForm
         participants={participants}

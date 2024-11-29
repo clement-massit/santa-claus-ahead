@@ -86,9 +86,24 @@ const Header = () => {
       <div className="snow-container"></div>
 
       <h1>Secret Santa 🎅</h1>
-      {/* <p>Organisez un échange de cadeaux amusant et mémorable !</p> */}
+    <div class="secret-santa-message">
+          <p class="intro">Le moment de l’année où l’on découvre qui sait vraiment faire semblant d’aimer un mug.</p>
+          <ol>
+            <li>Tu tires un nom.</li>
+            <li>T'offres un cadeau. Faites les radins.</li>
+            <li>Tu souris quand tu reçois le tien. Même si c’est de la merde.</li>
+          </ol>
+          <div class="rules">
+            <p>💰 <strong>Budget cadeau :</strong> 2 balles</p>
+            <p>📅 <strong>Date limite :</strong> Demain</p>
+          </div>
+          <p class="outro">Soyez créatif, ou ne le soyez pas, de toute façon votre destinataire dira « Oh, c’est parfait ! Merciiiiii ! ». <br />
+          Et pour ceux qui pensent offrir un cadeau marrant : n’oubliez pas que la vengeance se fait souvent au pot de départ. 🎄</p>
+          <p class="footer">Allez, amusez-vous ! (ou faites semblant, ça marche aussi).</p>
+        </div>
     </header>
   );
 };
+
 
 export default Header;
