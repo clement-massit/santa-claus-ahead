@@ -10,6 +10,7 @@ header {
   color: white;
   padding: 1rem;
   text-align: center;
+  font-size: x-large;
 }
 
 footer {
@@ -21,11 +22,14 @@ footer {
   margin-top: 1%;
   bottom: 0;
   width: 100%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .container {
   padding: 2rem;
   text-align: center;
+  background-color: #ffdcdc;
 }
 
 form {
@@ -50,4 +54,58 @@ button {
 
 button:hover {
   background-color: #ff856e;
+}
+
+ul,
+li {
+  list-style-type: none;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+.snow-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  pointer-events: none;
+}
+
+.snowflake {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+@keyframes fall {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes diagonal-fall {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.25;
+    transform: translate(10vw, 100vh);
+  }
 }

@@ -2,7 +2,7 @@ import { useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ParticipantForm from "./components/ParticipantForm";
-import PairingLogic from "./components/PairingLogic";
+// import PairingLogic from "./components/PairingLogic";
 import Background from "./components/Background";
 // import "./App.css";
 import "./style.css";
@@ -18,7 +18,7 @@ function App() {
         participants={participants}
         setParticipants={setParticipants}
       />
-      <PairingLogic participants={participants.map((p) => p.name)} />
+      {/* <PairingLogic participants={participants.map((p) => p.name)} /> */}
       <Footer />
     </>
   );
