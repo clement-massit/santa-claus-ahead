@@ -5,20 +5,14 @@ import {
   removeFromLocalStorage,
 } from "./localStorage";
 import emailjs from "emailjs-com";
-import a from "/src/1.png";
-import b from "/src/2.png";
 
-const pictures = {
-  pers1: a,
-  pers2: b,
-};
-console.log(pictures);
 const ParticipantForm = ({ participants, setParticipants }) => {
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
   const [pairs, setPairs] = useState([]);
   const adminEmail = "clement.massit@u-bordeaux.fr";
   const [currentUserEmail, setCurrentUserEmail] = useState("");
+  const [message, setMessage] = useState("");
 
   const formRef = useRef();
 
@@ -67,10 +61,11 @@ const ParticipantForm = ({ participants, setParticipants }) => {
     });
 
     setPairs(generatedPairs);
+    console.log(pairs);
   };
 
   // Gérer l'ajout d'un participant
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     removeFromLocalStorage("currentUser");
     setCurrentUserEmail("");
@@ -94,11 +89,13 @@ const ParticipantForm = ({ participants, setParticipants }) => {
 
     setName("");
     setMail("");
+    setMessage("");
+
     console.log(currentUserEmail);
   };
 
   // Envoi des paires par email
-  const sendEmail = (e) => {
+  const sendEmail = async (e) => {
     e.preventDefault();
 
     if (pairs.length === 0) {
@@ -106,32 +103,27 @@ const ParticipantForm = ({ participants, setParticipants }) => {
       return;
     }
 
-    pairs.forEach((pair) => {
-      console.log(pair);
+    pairs.forEach(async (pair) => {
+      const email = pair.giver_email;
+      const name = pair.receiver_name.toLowerCase();
+      try {
+        const response = await fetch("/.netlify/functions/sendEmail", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, name }),
+        });
 
-      const templateParams = {
-        giver_name: pair.giver_name,
-        receiver_name: pair.receiver_name,
-        giver_email: pair.giver_email,
-        message: "Tu dois offrir un putain de kdo à : " + pair.receiver_name,
-        img: pictures.pers1,
-      };
-      console.log(templateParams);
-      // emailjs
-      //   .send(
-      //     "service_7wfh5wk", // Remplacez par votre service ID
-      //     "template_kw2pe0f", // Remplacez par votre template ID
-      //     templateParams,
-      //     "puDXm3wchAQDhNP9Z" // Remplacez par votre clé publique
-      //   )
-      //   .then(
-      //     () => {
-      //       console.log(`Email envoyé avec succès pour ${pair.giver}`);
-      //     },
-      //     (error) => {
-      //       console.error("Erreur lors de l'envoi de l'email :", error);
-      //     }
-      //   );
+        const result = await response.json();
+        if (response.ok) {
+          setMessage("Email sent successfully!");
+        } else {
+          setMessage(`Failed to send email: ${result.error}`);
+        }
+      } catch (error) {
+        setMessage(`Error: ${error.message}`);
+      }
     });
   };
 
@@ -213,7 +205,8 @@ const ParticipantForm = ({ participants, setParticipants }) => {
                   <ul>
                     {pairs.map((pair, index) => (
                       <li key={index}>
-                        🎁 {pair.giver} offre un cadeau à {pair.receiver}
+                        🎁 {pair.giver_name} offre un cadeau à{" "}
+                        {pair.receiver_name}
                       </li>
                     ))}
                   </ul>
