@@ -5,6 +5,7 @@ import {
   removeFromLocalStorage,
 } from "./localStorage";
 import emailjs from "emailjs-com";
+import sgMail from "@sendgrid/mail";
 
 const ParticipantForm = ({ participants, setParticipants }) => {
   const [name, setName] = useState("");
@@ -106,24 +107,45 @@ const ParticipantForm = ({ participants, setParticipants }) => {
     pairs.forEach(async (pair) => {
       const email = pair.giver_email;
       const name = pair.receiver_name.toLowerCase();
-      try {
-        const response = await fetch("/.netlify/functions/sendEmail", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, name }),
-        });
+      // try {
+      //   const response = await fetch("/.netlify/functions/sendEmail", {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({ email, name }),
+      //   });
 
-        const result = await response.json();
-        if (response.ok) {
-          setMessage("Email sent successfully!");
-        } else {
-          setMessage(`Failed to send email: ${result.error}`);
-        }
-      } catch (error) {
-        setMessage(`Error: ${error.message}`);
-      }
+      //   const result = await response.json();
+      //   if (response.ok) {
+      //     setMessage("Email sent successfully!");
+      //   } else {
+      //     setMessage(`Failed to send email: ${result.error}`);
+      //   }
+      // } catch (error) {
+      //   setMessage(`Error: ${error.message}`);
+      // }
+      // using Twilio SendGrid's v3 Node.js Library
+      // https://github.com/sendgrid/sendgrid-nodejs
+
+      sgMail.setApiKey(
+        "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"
+      );
+      const msg = {
+        to: "test@example.com", // Change to your recipient
+        from: "test@example.com", // Change to your verified sender
+        subject: "Sending with SendGrid is Fun",
+        text: "and easy to do anywhere, even with Node.js",
+        html: "<strong>and easy to do anywhere, even with Node.js</strong>",
+      };
+      sgMail
+        .send(msg)
+        .then(() => {
+          console.log("Email sent");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     });
   };
 
