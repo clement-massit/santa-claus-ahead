@@ -11,9 +11,6 @@ function App() {
   return (
     <>
       <Header />
-
-      <Pres></Pres>
-
       <Background />
 
       <ParticipantForm
