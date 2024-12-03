@@ -51,8 +51,8 @@ const ParticipantForm = ({ participants, setParticipants }) => {
     const generatedPairs = shuffledParticipants.map((participant, index) => {
       const recipient =
         shuffledParticipants[(index + 1) % shuffledParticipants.length];
-      console.log(recipient);
-      console.log(participant);
+      // console.log(recipient);
+      console.log(participant.name, recipient.name);
       return {
         giver_name: participant.name,
         giver_email: participant.email,
@@ -62,7 +62,7 @@ const ParticipantForm = ({ participants, setParticipants }) => {
     });
 
     setPairs(generatedPairs);
-    console.log(pairs);
+    // console.log(pairs);
   };
 
   // Gérer l'ajout d'un participant
@@ -106,46 +106,48 @@ const ParticipantForm = ({ participants, setParticipants }) => {
 
     pairs.forEach(async (pair) => {
       const email = pair.giver_email;
-      const name = pair.receiver_name.toLowerCase();
-      // try {
-      //   const response = await fetch("/.netlify/functions/sendEmail", {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify({ email, name }),
-      //   });
+      const giver = pair.giver_name;
+      const receiver = pair.receiver_name;
 
-      //   const result = await response.json();
-      //   if (response.ok) {
-      //     setMessage("Email sent successfully!");
-      //   } else {
-      //     setMessage(`Failed to send email: ${result.error}`);
-      //   }
-      // } catch (error) {
-      //   setMessage(`Error: ${error.message}`);
-      // }
+      try {
+        const response = await fetch("/.netlify/functions/sendEmail", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, giver, receiver }),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          setMessage("Email sent successfully!");
+        } else {
+          setMessage(`Failed to send email: ${result.error}`);
+        }
+      } catch (error) {
+        setMessage(`Error: ${error.message}`);
+      }
       // using Twilio SendGrid's v3 Node.js Library
       // https://github.com/sendgrid/sendgrid-nodejs
 
-      sgMail.setApiKey(
-        "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"
-      );
-      const msg = {
-        to: "test@example.com", // Change to your recipient
-        from: "test@example.com", // Change to your verified sender
-        subject: "Sending with SendGrid is Fun",
-        text: "and easy to do anywhere, even with Node.js",
-        html: "<strong>and easy to do anywhere, even with Node.js</strong>",
-      };
-      sgMail
-        .send(msg)
-        .then(() => {
-          console.log("Email sent");
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      // sgMail.setApiKey(
+      //   "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"
+      // );
+      // const msg = {
+      //   to: "test@example.com", // Change to your recipient
+      //   from: "test@example.com", // Change to your verified sender
+      //   subject: "Sending with SendGrid is Fun",
+      //   text: "and easy to do anywhere, even with Node.js",
+      //   html: "<strong>and easy to do anywhere, even with Node.js</strong>",
+      // };
+      // sgMail
+      //   .send(msg)
+      //   .then(() => {
+      //     console.log("Email sent");
+      //   })
+      //   .catch((error) => {
+      //     console.error(error);
+      //   });
     });
   };
 
@@ -153,7 +155,7 @@ const ParticipantForm = ({ participants, setParticipants }) => {
     <div className="container">
       {/* {console.log("participants", participants)}
       {console.log("current", currentUserEmail)} */}
-      <h2>Ajouter des participants</h2>
+      <h2>Ajouter un participant</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -171,7 +173,7 @@ const ParticipantForm = ({ participants, setParticipants }) => {
         />
         <button type="submit">Ajouter</button>
       </form>
-      <ul>
+      {/* <ul>
         {participants.map((participant, index) => (
           <li key={index}>
             {participant.name} ({participant.email}){" "}
@@ -192,7 +194,72 @@ const ParticipantForm = ({ participants, setParticipants }) => {
             </button>
           </li>
         ))}
-      </ul>
+      </ul> */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "20px",
+        }}
+      >
+        <table
+          style={{
+            borderCollapse: "collapse",
+            width: "60%",
+            textAlign: "center",
+            margin: "20px 0",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            borderRadius: "8px",
+            overflow: "hidden",
+          }}
+        >
+          <thead>
+            <tr
+              style={{
+                backgroundColor: "#4CAF50",
+                color: "white",
+                textTransform: "uppercase",
+                fontWeight: "bold",
+              }}
+            >
+              <th style={{ padding: "10px" }}>Participants</th>
+            </tr>
+          </thead>
+          <tbody>
+            {participants.map((participant, index) => (
+              <tr
+                key={index}
+                style={{
+                  backgroundColor: index % 2 === 0 ? "#f9f9f9" : "#ffffff",
+                }}
+              >
+                <td style={{ padding: "10px", border: "1px solid #ddd" }}>
+                  {participant.name}{" "}
+                  <button
+                    onClick={() => {
+                      const updatedParticipants = participants.filter(
+                        (_, i) => i !== index
+                      );
+                      setParticipants(updatedParticipants);
+                      saveToLocalStorage("participants", updatedParticipants);
+                      if (participant.email === currentUserEmail) {
+                        removeFromLocalStorage("currentUser");
+                        setCurrentUserEmail("");
+                      }
+                    }}
+                  >
+                    Supprimer
+                  </button>
+                </td>
+                {/* <td style={{ padding: "10px", border: "1px solid #ddd" }}>
+                {pair.receiver}
+              </td> */}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {/* <div className="container">
         <h2>Assignation des paires</h2>
@@ -216,14 +283,14 @@ const ParticipantForm = ({ participants, setParticipants }) => {
 
       {currentUserEmail === adminEmail && (
         <div className="admin-section">
-          <h3>Administrateur : {adminEmail}</h3>
+          {/* <h3>Administrateur : {adminEmail}</h3> */}
           {currentUserEmail === adminEmail ? (
             <div className="pairing-container">
               <h2>Assignation des paires</h2>
               <button onClick={generatePairs}>Générer les paires</button>
               {pairs.length > 0 && (
                 <div>
-                  <h3>Résultats :</h3>
+                  {/* <h3>Résultats :</h3>
                   <ul>
                     {pairs.map((pair, index) => (
                       <li key={index}>
@@ -231,7 +298,7 @@ const ParticipantForm = ({ participants, setParticipants }) => {
                         {pair.receiver_name}
                       </li>
                     ))}
-                  </ul>
+                  </ul> */}
                   <form ref={formRef} onSubmit={sendEmail}>
                     <button type="submit">Envoyer les paires par email</button>
                   </form>

@@ -2,14 +2,15 @@ import { sendEmail } from "@netlify/emails";
 
 export const handler = async (event, context) => {
   try {
-    let { email, name } = JSON.parse(event.body);
+    let { email, giver, receiver } = JSON.parse(event.body);
     await sendEmail({
       from: "santa.claus.ahead@gmail.com", // Remplacez par votre email
       to: email,
       subject: "Secret SantaHead ",
       template: "subscribed", // Nom du modèle d'email (configuré dans votre tableau SendGrid)
       parameters: {
-        name,
+        giver,
+        receiver,
       },
     });
 
