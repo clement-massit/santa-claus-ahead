@@ -4,8 +4,6 @@ import {
   saveToLocalStorage,
   removeFromLocalStorage,
 } from "./localStorage";
-import emailjs from "emailjs-com";
-import sgMail from "@sendgrid/mail";
 
 const ParticipantForm = ({ participants, setParticipants }) => {
   const [name, setName] = useState("");
