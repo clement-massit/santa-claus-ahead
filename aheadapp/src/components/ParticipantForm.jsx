@@ -52,7 +52,7 @@ const ParticipantForm = ({ participants, setParticipants }) => {
       const recipient =
         shuffledParticipants[(index + 1) % shuffledParticipants.length];
       // console.log(recipient);
-      console.log(participant.name, recipient.name);
+      // console.log(participant.name, recipient.name);
       return {
         giver_name: participant.name,
         giver_email: participant.email,
@@ -92,7 +92,7 @@ const ParticipantForm = ({ participants, setParticipants }) => {
     setMail("");
     setMessage("");
 
-    console.log(currentUserEmail);
+    // console.log(currentUserEmail);
   };
 
   // Envoi des paires par email
