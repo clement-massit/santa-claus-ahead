@@ -101,7 +101,7 @@ const Header = () => {
             💰 <strong>Budget cadeau :</strong> 2 balles
           </p>
           <p>
-            📅 <strong>Date limite :</strong> Demain
+            📅 <strong>Date limite :</strong> 19 Décembre
           </p>
         </div>
         <p className="outro">
@@ -111,7 +111,7 @@ const Header = () => {
           la vengeance se fait souvent au pot de départ. 🎄
         </p>
         <p className="footer">
-          Allez, amusez-vous ! (ou faites semblant, ça marche aussi).
+          On s'offrira les Kdo pendant l'oberje panaméenne le 19 décembre
         </p>
       </div>
     </header>
