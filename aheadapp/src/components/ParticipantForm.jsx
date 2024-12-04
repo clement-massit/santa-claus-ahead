@@ -5,9 +5,16 @@ import {
   removeFromLocalStorage,
 } from "./localStorage";
 import emailjs from "emailjs-com";
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL; //process.env.REACT_APP_SUPABASEURL;
+const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
+
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 const ParticipantForm = ({ participants, setParticipants }) => {
   const [name, setName] = useState("");
-  const [mail, setMail] = useState("");
+  const [email, setEmail] = useState("");
   const [pairs, setPairs] = useState([]);
   const adminEmail = "clement.massit@u-bordeaux.fr";
   const [currentUserEmail, setCurrentUserEmail] = useState("");
@@ -15,17 +22,40 @@ const ParticipantForm = ({ participants, setParticipants }) => {
 
   const formRef = useRef();
 
+  async function getParticipants() {
+    const { data, error } = await supabase
+      .from("participants")
+      .select("name, email");
+
+    if (error) {
+      console.error("Erreur de récupération des participants", error);
+    } else {
+      const participantsList = document.getElementById("participants-list");
+      participantsList.innerHTML = ""; // Vider la liste existante
+      data.forEach((participant) => {
+        const li = document.createElement("li");
+        li.textContent = `${participant.name} (${participant.email})`;
+        participantsList.appendChild(li);
+      });
+    }
+  }
+
   // Charger les participants depuis le localStorage
+  // Charger les participants au démarrage
   useEffect(() => {
-    const storedParticipants = loadFromLocalStorage("participants");
-    const storedCurrentUserEmail = loadFromLocalStorage("currentUser");
-    if (storedParticipants.length > 0) {
-      setParticipants(storedParticipants);
-    }
-    if (storedCurrentUserEmail) {
-      setCurrentUserEmail(storedCurrentUserEmail);
-    }
-  }, [setParticipants]);
+    fetchParticipants();
+  }, []);
+  // useEffect(() => {
+  //   const storedParticipants = loadFromLocalStorage("participants");
+  //   const storedCurrentUserEmail = loadFromLocalStorage("currentUser");
+  //   if (storedParticipants.length > 0) {
+  //     setParticipants(storedParticipants);
+  //   }
+  //   if (storedCurrentUserEmail) {
+  //     setCurrentUserEmail(storedCurrentUserEmail);
+  //   }
+  // }, [setParticipants]);
+
   // Mélange aléatoire d'un tableau
   const shuffleArray = (array) => {
     const shuffled = [...array];
@@ -66,31 +96,73 @@ const ParticipantForm = ({ participants, setParticipants }) => {
   // Gérer l'ajout d'un participant
   const handleSubmit = async (e) => {
     e.preventDefault();
-    removeFromLocalStorage("currentUser");
-    setCurrentUserEmail("");
-    if (name.trim() === "" || mail.trim() === "") {
-      alert("Le nom et l'email sont obligatoires.");
-      return;
+
+    // Ajouter le participant à Supabase
+    const { data, error } = await supabase
+      .from("participants")
+      .insert([{ name, email }]);
+
+    if (error) {
+      console.error("Erreur lors de l'ajout :", error.message);
+      alert("Erreur lors de l'inscription !");
+    } else {
+      alert("Inscription réussie !");
+      setName("");
+      setEmail("");
+      fetchParticipants(); // Rafraîchir la liste
     }
+  };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   removeFromLocalStorage("currentUser");
+  //   setCurrentUserEmail("");
+  //   if (name.trim() === "" || mail.trim() === "") {
+  //     alert("Le nom et l'email sont obligatoires.");
+  //     return;
+  //   }
 
-    const newParticipant = {
-      name: name.trim(),
-      email: mail.trim(),
-    };
+  //   const newParticipant = {
+  //     name: name.trim(),
+  //     email: mail.trim(),
+  //   };
 
-    const updatedParticipants = [...participants, newParticipant];
-    setParticipants(updatedParticipants);
-    saveToLocalStorage("participants", updatedParticipants);
+  //   const updatedParticipants = [...participants, newParticipant];
+  //   setParticipants(updatedParticipants);
+  //   saveToLocalStorage("participants", updatedParticipants);
 
-    removeFromLocalStorage("currentUser");
-    setCurrentUserEmail(mail.trim());
-    saveToLocalStorage("currentUser", mail.trim());
+  //   removeFromLocalStorage("currentUser");
+  //   setCurrentUserEmail(mail.trim());
+  //   saveToLocalStorage("currentUser", mail.trim());
 
-    setName("");
-    setMail("");
-    setMessage("");
+  //   setName("");
+  //   setMail("");
+  //   setMessage("");
+  //   const { data, error } = await supabase.from("participants").insert([
+  //     {
+  //       name,
+  //       mail,
+  //     },
+  //   ]);
+  //   if (error) {
+  //     console.error("Erreur d'enregistrement", error);
+  //   } else {
+  //     alert("Vous êtes inscrit avec succès !");
+  //     console.log("Participant ajouté", data);
+  //   }
+  //   // console.log(currentUserEmail);
+  // };
 
-    // console.log(currentUserEmail);
+  // Fonction pour récupérer les participants
+  const fetchParticipants = async () => {
+    const { data, error } = await supabase
+      .from("participants")
+      .select("name, email");
+
+    if (error) {
+      console.error("Erreur lors de la récupération :", error.message);
+    } else {
+      setParticipants(data);
+    }
   };
 
   // Envoi des paires par email
@@ -165,8 +237,8 @@ const ParticipantForm = ({ participants, setParticipants }) => {
         />
         <input
           type="email"
-          value={mail}
-          onChange={(e) => setMail(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           placeholder="Email du participant"
           required
         />
