@@ -4,7 +4,7 @@ import {
   saveToLocalStorage,
   removeFromLocalStorage,
 } from "./localStorage";
-
+import emailjs from "emailjs-com";
 const ParticipantForm = ({ participants, setParticipants }) => {
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
@@ -107,27 +107,46 @@ const ParticipantForm = ({ participants, setParticipants }) => {
       const giver = pair.giver_name;
       const receiver = pair.receiver_name;
 
-      try {
-        const response = await fetch("/.netlify/functions/sendEmail", {
-          method: "POST",
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, giver, receiver }),
-        });
+      // try {
+      //   const response = await fetch("/.netlify/functions/sendEmail", {
+      //     method: "POST",
+      //     headers: {
+      //       "Access-Control-Allow-Origin": "*",
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({ email, giver, receiver }),
+      //   });
 
-        const result = await response.json();
-        if (response.ok) {
-          setMessage("Email sent successfully!");
-        } else {
-          setMessage(`Failed to send email: ${result.error}`);
-        }
-      } catch (error) {
-        setMessage(`Error: ${error.message}`);
-      }
-      // using Twilio SendGrid's v3 Node.js Library
-      // https://github.com/sendgrid/sendgrid-nodejs
+      //   const result = await response.json();
+      //   if (response.ok) {
+      //     setMessage("Email sent successfully!");
+      //   } else {
+      //     setMessage(`Failed to send email: ${result.error}`);
+      //   }
+      // } catch (error) {
+      //   setMessage(`Error: ${error.message}`);
+      // }
+      var templateParams = {
+        email: email,
+        giver: giver,
+        receiver: receiver,
+      };
+
+      emailjs
+        .send(
+          "service_7wfh5wk",
+          "template_kw2pe0f",
+          templateParams,
+          "puDXm3wchAQDhNP9Z"
+        )
+        .then(
+          (response) => {
+            console.log("SUCCESS!", response.status, response.text);
+          },
+          (error) => {
+            console.log("FAILED...", error);
+          }
+        );
     });
   };
 
