@@ -13,8 +13,7 @@ const ParticipantForm = ({ participants, setParticipants }) => {
   const [email, setEmail] = useState("");
   const [pairs, setPairs] = useState([]);
   const adminEmail = "clement.massit@u-bordeaux.fr";
-  const [currentUserEmail, setCurrentUserEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [currentUserEmail, setCurrentUserEmail] = useState(null);
 
   const formRef = useRef();
 
@@ -96,7 +95,8 @@ const ParticipantForm = ({ participants, setParticipants }) => {
     // Ajouter le participant à Supabase
     const { data, error } = await supabase
       .from("participants")
-      .insert([{ name, email }]);
+      .insert([{ name, email }])
+      .select();
 
     if (error) {
       console.error("Erreur lors de l'ajout :", error.message);
@@ -105,6 +105,9 @@ const ParticipantForm = ({ participants, setParticipants }) => {
       alert("Inscription réussie !");
       setName("");
       setEmail("");
+      if (data && data.length > 0) {
+        setCurrentUserEmail(data[0].email); // Le premier (et seul) élément de l'insertion
+      }
       fetchParticipants(); // Rafraîchir la liste
     }
   };
@@ -158,6 +161,7 @@ const ParticipantForm = ({ participants, setParticipants }) => {
       console.error("Erreur lors de la récupération :", error.message);
     } else {
       setParticipants(data);
+      // console.log(data);
     }
   };
 
@@ -199,7 +203,6 @@ const ParticipantForm = ({ participants, setParticipants }) => {
         giver: giver,
         receiver: receiver,
       };
-
       emailjs
         .send(
           "service_7wfh5wk",
@@ -327,7 +330,6 @@ const ParticipantForm = ({ participants, setParticipants }) => {
           </tbody>
         </table>
       </div>
-
       {/* <div className="container">
         <h2>Assignation des paires</h2>
         <button onClick={generatePairs}>Générer les paires</button>
@@ -347,7 +349,6 @@ const ParticipantForm = ({ participants, setParticipants }) => {
           </div>
         )}
       </div> */}
-
       {currentUserEmail === adminEmail && (
         <div className="admin-section">
           {/* <h3>Administrateur : {adminEmail}</h3> */}
@@ -377,8 +378,6 @@ const ParticipantForm = ({ participants, setParticipants }) => {
           )}
         </div>
       )}
-
-      {/* <img src={pictures.pers1} alt="caca" /> */}
     </div>
   );
 };
