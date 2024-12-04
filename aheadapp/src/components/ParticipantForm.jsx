@@ -111,6 +111,7 @@ const ParticipantForm = ({ participants, setParticipants }) => {
         const response = await fetch("/.netlify/functions/sendEmail", {
           method: "POST",
           headers: {
+            "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ email, giver, receiver }),
