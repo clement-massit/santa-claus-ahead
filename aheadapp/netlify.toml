@@ -1,6 +1,7 @@
 [functions]
   directory = "netlify/functions"
-  functions.node_version = "16"
+  node_bundler = "esbuild"
+
 
 [build]
   functions = "netlify/functions"

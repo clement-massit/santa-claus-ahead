@@ -19,6 +19,7 @@ export const handler = async (event, context) => {
       body: JSON.stringify({ message: "Email sent successfully!" }),
     };
   } catch (error) {
+    console.log(error);
     return {
       statusCode: 500,
       body: JSON.stringify({
