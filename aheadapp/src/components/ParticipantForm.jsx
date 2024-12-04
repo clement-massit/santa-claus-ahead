@@ -102,7 +102,6 @@ const ParticipantForm = ({ participants, setParticipants }) => {
       console.error("Erreur lors de l'ajout :", error.message);
       alert("Erreur lors de l'inscription !");
     } else {
-      alert("Inscription réussie !");
       setName("");
       setEmail("");
       if (data && data.length > 0) {
