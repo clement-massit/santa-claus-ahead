@@ -1,5 +1,7 @@
 [functions]
   directory = "netlify/functions"
+  node_bundler = "esbuild"
+  functions.node_version = "21.7.2"
 
 [build]
   functions = "netlify/functions"
