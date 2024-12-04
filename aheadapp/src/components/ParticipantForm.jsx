@@ -235,7 +235,7 @@ const ParticipantForm = ({ participants, setParticipants }) => {
               >
                 <td style={{ padding: "10px", border: "1px solid #ddd" }}>
                   {participant.name}{" "}
-                  <button
+                  {/* <button
                     onClick={() => {
                       const updatedParticipants = participants.filter(
                         (_, i) => i !== index
@@ -249,7 +249,7 @@ const ParticipantForm = ({ participants, setParticipants }) => {
                     }}
                   >
                     Supprimer
-                  </button>
+                  </button> */}
                 </td>
                 {/* <td style={{ padding: "10px", border: "1px solid #ddd" }}>
                 {pair.receiver}
