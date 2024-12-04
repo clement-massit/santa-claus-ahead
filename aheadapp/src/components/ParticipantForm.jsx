@@ -1,9 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import {
-  loadFromLocalStorage,
-  saveToLocalStorage,
-  removeFromLocalStorage,
-} from "./localStorage";
+
 import emailjs from "emailjs-com";
 import { createClient } from "@supabase/supabase-js";
 
