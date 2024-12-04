@@ -1,5 +1,6 @@
 [functions]
   directory = "netlify/functions"
+  functions.node_version = "16"
 
 [build]
   functions = "netlify/functions"
