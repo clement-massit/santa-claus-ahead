@@ -1,7 +1,5 @@
 [functions]
   directory = "netlify/functions"
-  included_files = ["node_modules/**"]
-  node_bundler = "esbuild"
 
 [build]
   functions = "netlify/functions"
