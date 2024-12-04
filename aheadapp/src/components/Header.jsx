@@ -98,7 +98,7 @@ const Header = () => {
         </ol>
         <div className="rules">
           <p>
-            💰 <strong>Budget cadeau :</strong> 2 balles
+            💰 <strong>Budget cadeau :</strong> illimité chakal
           </p>
           <p>
             📅 <strong>Date limite :</strong> 19 Décembre
