@@ -1,0 +1,16 @@
+.homepage-container {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  color: #332b2b;
+  margin-top: 80px;
+}
+
+.app-title {
+  font-size: 2.5em;
+  color: #2c3e50;
+}
+
+.app-subtitle {
+  font-size: 1.2em;
+  color: #7f8c8d;
+}

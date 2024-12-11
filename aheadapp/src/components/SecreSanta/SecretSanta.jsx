@@ -16,7 +16,6 @@ const SecretSanta = () => {
         participants={participants}
         setParticipants={setParticipants}
       />
-      {/* <PairingLogic participants={participants.map((p) => p.name)} /> */}
       <Footer />
     </>
   );
