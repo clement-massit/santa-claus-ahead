@@ -2,11 +2,13 @@ import { useState, useEffect, useRef } from "react";
 
 import emailjs from "emailjs-com";
 import { createClient } from "@supabase/supabase-js";
+import "./SecretSanta.css";
+import supabase from "../supabase";
 
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL; //process.env.REACT_APP_SUPABASEURL;
-const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
+// const supabaseUrl = process.env.REACT_APP_SUPABASE_URL; //process.env.REACT_APP_SUPABASEURL;
+// const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
 
-const supabase = createClient(supabaseUrl, supabaseKey);
+// const supabase = createClient(supabaseUrl, supabaseKey);
 
 const ParticipantForm = ({ participants, setParticipants }) => {
   const [name, setName] = useState("");
@@ -18,7 +20,7 @@ const ParticipantForm = ({ participants, setParticipants }) => {
   const formRef = useRef();
 
   async function getParticipants() {
-    const { data, error } = await supabase
+    const { data, error } = await supabase()
       .from("participants")
       .select("name, email");
 
@@ -93,7 +95,7 @@ const ParticipantForm = ({ participants, setParticipants }) => {
     e.preventDefault();
 
     // Ajouter le participant à Supabase
-    const { data, error } = await supabase
+    const { data, error } = await supabase()
       .from("participants")
       .insert([{ name, email }])
       .select();
@@ -152,7 +154,7 @@ const ParticipantForm = ({ participants, setParticipants }) => {
 
   // Fonction pour récupérer les participants
   const fetchParticipants = async () => {
-    const { data, error } = await supabase
+    const { data, error } = await supabase()
       .from("participants")
       .select("name, email");
 
@@ -225,6 +227,7 @@ const ParticipantForm = ({ participants, setParticipants }) => {
       {/* {console.log("participants", participants)}
       {console.log("current", currentUserEmail)} */}
       <h2>Ajouter un participant</h2>
+
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -240,7 +243,9 @@ const ParticipantForm = ({ participants, setParticipants }) => {
           placeholder="Email du participant"
           required
         />
-        <button type="submit">Ajouter</button>
+        <button className="ButtonSecretSanta" type="submit">
+          Ajouter
+        </button>
       </form>
       {/* <ul>
         {participants.map((participant, index) => (
@@ -380,5 +385,18 @@ const ParticipantForm = ({ participants, setParticipants }) => {
     </div>
   );
 };
+const style = {
+  buttonparticipants: {
+    backgroundColor: "#ff6f61",
+    color: "white",
+    padding: "0.5rem 1rem",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
 
+  // button:hover {
+  //   background-color: #ff856e;
+  // }
+};
 export default ParticipantForm;

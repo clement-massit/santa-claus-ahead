@@ -1,25 +1,26 @@
-import { useState, useEffect } from "react";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import ParticipantForm from "./components/ParticipantForm";
-import Background from "./components/Background";
 // import "./App.css";
 import "./style.css";
-import initSqlJs from "sql.js";
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import SecretSanta from "./components/SecreSanta/SecretSanta";
+import HomeAhead from "./components/Home";
+import Repas from "./components/Repas/Repas";
+import NavBar from "./components/NavBar/NavBar";
 
 function App() {
-  const [participants, setParticipants] = useState([]);
   return (
     <>
-      <Header />
-      <Background />
-
-      <ParticipantForm
-        participants={participants}
-        setParticipants={setParticipants}
-      />
-      {/* <PairingLogic participants={participants.map((p) => p.name)} /> */}
-      <Footer />
+      <Router>
+        <div>
+          <NavBar></NavBar>
+          {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+          <Routes>
+            <Route path="/" element={<HomeAhead />}></Route>
+            <Route path="/secretsanta" element={<SecretSanta />}></Route>
+            <Route path="/repas" element={<Repas />}></Route>
+          </Routes>
+        </div>
+      </Router>
     </>
   );
 }
