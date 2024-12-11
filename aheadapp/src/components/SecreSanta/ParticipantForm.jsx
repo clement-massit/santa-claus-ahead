@@ -112,45 +112,7 @@ const ParticipantForm = ({ participants, setParticipants }) => {
       fetchParticipants(); // Rafraîchir la liste
     }
   };
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   removeFromLocalStorage("currentUser");
-  //   setCurrentUserEmail("");
-  //   if (name.trim() === "" || mail.trim() === "") {
-  //     alert("Le nom et l'email sont obligatoires.");
-  //     return;
-  //   }
-
-  //   const newParticipant = {
-  //     name: name.trim(),
-  //     email: mail.trim(),
-  //   };
-
-  //   const updatedParticipants = [...participants, newParticipant];
-  //   setParticipants(updatedParticipants);
-  //   saveToLocalStorage("participants", updatedParticipants);
-
-  //   removeFromLocalStorage("currentUser");
-  //   setCurrentUserEmail(mail.trim());
-  //   saveToLocalStorage("currentUser", mail.trim());
-
-  //   setName("");
-  //   setMail("");
-  //   setMessage("");
-  //   const { data, error } = await supabase.from("participants").insert([
-  //     {
-  //       name,
-  //       mail,
-  //     },
-  //   ]);
-  //   if (error) {
-  //     console.error("Erreur d'enregistrement", error);
-  //   } else {
-  //     alert("Vous êtes inscrit avec succès !");
-  //     console.log("Participant ajouté", data);
-  //   }
-  //   // console.log(currentUserEmail);
-  // };
+  
 
   // Fonction pour récupérer les participants
   const fetchParticipants = async () => {
@@ -180,25 +142,7 @@ const ParticipantForm = ({ participants, setParticipants }) => {
       const giver = pair.giver_name;
       const receiver = pair.receiver_name;
 
-      // try {
-      //   const response = await fetch("/.netlify/functions/sendEmail", {
-      //     method: "POST",
-      //     headers: {
-      //       "Access-Control-Allow-Origin": "*",
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify({ email, giver, receiver }),
-      //   });
-
-      //   const result = await response.json();
-      //   if (response.ok) {
-      //     setMessage("Email sent successfully!");
-      //   } else {
-      //     setMessage(`Failed to send email: ${result.error}`);
-      //   }
-      // } catch (error) {
-      //   setMessage(`Error: ${error.message}`);
-      // }
+     
       var templateParams = {
         email: email,
         giver: giver,

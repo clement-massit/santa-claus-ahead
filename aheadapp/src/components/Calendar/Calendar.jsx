@@ -67,7 +67,8 @@ function MyCalendar() {
 
   return (
     <div className="responsive-div">
-      <Terminal text="Calendrier"></Terminal>
+      {/* <Terminal text={"Calendrier"}></Terminal> */}
+      <p className='title' >Calendrier</p>
       {/* {events.map((event) => (
         <li key={event.id}>{event.title}</li>
       ))} */}
